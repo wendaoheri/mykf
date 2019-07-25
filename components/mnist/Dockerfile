@@ -1,4 +1,4 @@
-FROM ml-base
+FROM registry.cn-hangzhou.aliyuncs.com/mykf/ml-base
 
 RUN pip install pyhdfs
 RUN pip install tensorflow==1.7.0
