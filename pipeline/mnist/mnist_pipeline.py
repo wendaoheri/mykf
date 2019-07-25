@@ -51,9 +51,9 @@ def mnist_pipeline(webhdfs_hosts='',
           ]
   )
 
-  steps = [train]
-  for step in steps:
-    step.apply(onprem.mount_pvc('', 'local-storage', '/mnt'))
+#   steps = [train]
+#   for step in steps:
+#     step.apply(onprem.mount_pvc('', 'local-storage', '/mnt'))
 
 if __name__ == '__main__':
   import kfp.compiler as compiler
