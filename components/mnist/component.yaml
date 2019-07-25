@@ -1,0 +1,29 @@
+name: ml-mnist
+description: ml-mnist
+inputs:
+- {name: Webhdfs hosts, type: string, description='Webhdfs hosts'}
+- {name: Training data input hdfs dir, type: string, description='hdfs input data dir'}
+- {name: TF model dir, type: string, description='tf model dir'}
+- {name: Model data output hdfs dir, type: string, description='hdfs output data dir'}
+- {name: TF model type, type: string, description='CNN or LINEAR'}
+- {name: Train steps, type: int, description='The number of training steps to perform'}
+- {name: Train batch size, type: int, description='The number of batch size during training'}
+- {name: Train learning rate, type: float, description='Learning rate for training'}
+outputs:
+- {name: Model data output hdfs dir, type: string, description='hdfs output data dir'}
+implementation:
+  container:
+    image: registry.cn-hangzhou.aliyuncs.com/mykf/ml-mnist
+    command: [python, /model.py],
+    args: [
+      --webhdfs-hosts,    {name: Webhdfs hosts},
+      --tf-data-dir,      {name: Training data input hdfs dir},
+      --tf-model-dir,     {name: TF model dir},
+      --tf-export-dir,    {name: Model data output hdfs dir},
+      --tf-model-type,    {name: TF model type},
+      --tf-train-steps,   {name: Train steps},
+      --tf-batch-size,    {name: Train batch size},
+      --tf-learning-rate, {name: Train learning rate}
+    ]
+    fileOutputs:
+      Model data output hdfs dir: /tmp/model/mnist
