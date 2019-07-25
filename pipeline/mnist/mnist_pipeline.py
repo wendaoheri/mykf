@@ -31,8 +31,7 @@ def mnist_pipeline(webhdfs_hosts='',
                    model_export_dir='/tmp/model/mnist',
                    train_steps='200',
                    learning_rate='0.01',
-                   batch_size='100',
-                   pvc_name=''):
+                   batch_size='100'):
   """
   Pipeline with three stages:
     1. train an MNIST classifier
@@ -54,7 +53,7 @@ def mnist_pipeline(webhdfs_hosts='',
 
   steps = [train]
   for step in steps:
-    step.apply(onprem.mount_pvc(pvc_name, 'local-storage', '/mnt'))
+    step.apply(onprem.mount_pvc('', 'local-storage', '/mnt'))
 
 if __name__ == '__main__':
   import kfp.compiler as compiler
