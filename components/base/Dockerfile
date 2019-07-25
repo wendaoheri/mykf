@@ -1,7 +1,7 @@
 FROM centos:7
 
 
-RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && yum makecache
+# RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && yum makecache
 
 RUN yum install -y epel-release && \
     yum install -y python && \
