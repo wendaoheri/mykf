@@ -14,16 +14,16 @@ outputs:
 implementation:
   container:
     image: registry.cn-hangzhou.aliyuncs.com/mykf/ml-mnist
-    command: [python, /model.py],
+    command: [python, /model.py]
     args: [
-      --webhdfs-hosts,    {name: Webhdfs hosts},
-      --tf-data-dir,      {name: Training data input hdfs dir},
-      --tf-model-dir,     {name: TF model dir},
-      --tf-export-dir,    {name: Model data output hdfs dir},
-      --tf-model-type,    {name: TF model type},
-      --tf-train-steps,   {name: Train steps},
-      --tf-batch-size,    {name: Train batch size},
-      --tf-learning-rate, {name: Train learning rate}
+      --webhdfs-hosts,    {inputValue: Webhdfs hosts},
+      --tf-data-dir,      {inputValue: Training data input hdfs dir},
+      --tf-model-dir,     {inputValue: TF model dir},
+      --tf-export-dir,    {inputValue: Model data output hdfs dir},
+      --tf-model-type,    {inputValue: TF model type},
+      --tf-train-steps,   {inputValue: Train steps},
+      --tf-batch-size,    {inputValue: Train batch size},
+      --tf-learning-rate, {inputValue: Train learning rate}
     ]
     fileOutputs:
       Model data output hdfs dir: /tmp/model/mnist
