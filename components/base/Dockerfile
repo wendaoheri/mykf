@@ -10,4 +10,4 @@ RUN yum install -y epel-release && \
     yum install -y unzip && \
     yum install -y python-pip
 
-ADD pip.conf /root/.pip/pip.conf
+# ADD pip.conf /root/.pip/pip.conf
