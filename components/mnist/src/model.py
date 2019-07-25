@@ -157,16 +157,23 @@ def download_data_from_hdfs(client, input_data_dir):
     os.makedirs(input_data_dir)
   for data_file in client.listdir(input_data_dir):
     path = input_data_dir + '/' + data_file
-    client.copy_to_local(path, path)
-  print("Download data from hdfs")
+    status = client.get_file_status(path)
+    if status.type == 'DIRECTORY':
+      download_data_from_hdfs(client, path)
+    else:
+      client.copy_to_local(path, path)
+  print("Download data from hdfs " + path)
 
 def upload_data_to_hdfs(client, output_data_dir):
   if not client.exists(output_data_dir):
     client.mkdirs(output_data_dir)
   for data_file in os.listdir(output_data_dir):
     path = output_data_dir + '/' + data_file
-    client.copy_from_local(path,path)
-  print("Upload model to hdfs")
+    if os.path.isdir(path):
+      upload_data_to_hdfs(client, path)
+    else:
+      client.copy_from_local(path,path)
+  print("Upload model to hdfs " + path)
 
 def main(_):
   tf.logging.set_verbosity(tf.logging.INFO)
