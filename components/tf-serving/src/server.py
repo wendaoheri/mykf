@@ -19,7 +19,7 @@ def main(argv=None):
     parser.add_argument('--webhdfs-hosts', type=str, help='webhdfs hosts')
     parser.add_argument('--tf-export-dir', type=str, help='hdfs path ')
     parser.add_argument('--port', type=int, default=8500, help='server port')
-    parser.add_argument('--rest-api-port', type=int, defulat=8501, help='rest api port')
+    parser.add_argument('--rest-api-port', type=int, default=8501, help='rest api port')
     parser.add_argument('--model-name', type=str, help='model name')
     parser.add_argument('--model-base-path', type=str, default='/model',help='model base path')
     args = parser.parse_args()
@@ -35,7 +35,7 @@ def main(argv=None):
         '--model_name', args.model_name,
         '--model_base_path', args.model_base_path
     ])
-    
+
     commands.getstatusoutput(cmd)
 
 if __name__ == '__main__':
