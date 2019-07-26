@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import argparse
 import pyhdfs
 import commands
@@ -36,9 +40,10 @@ def main(argv=None):
         '--model_name', args.model_name,
         '--model_base_path', args.model_base_path
     ])
-
+    print(cmd)
     status,output = commands.getstatusoutput(cmd)
-    print status, output
+    print(status)
+    print(output)
 
 if __name__ == '__main__':
     main()
