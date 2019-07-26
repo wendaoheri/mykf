@@ -4,8 +4,9 @@ from __future__ import print_function
 
 import argparse
 import pyhdfs
-import commands
+import subprocess
 import os
+import sys
 
 def download_data_from_hdfs(client, input_data_dir, dest_dir):
   if not os.path.exists(dest_dir):
@@ -41,9 +42,20 @@ def main(argv=None):
         '--model_base_path=' + args.model_base_path
     ])
     print(cmd)
-    status,output = commands.getstatusoutput(cmd)
-    print(status)
-    print(output)
+    popen = subprocess.Popen([cmd],
+                         stdout = subprocess.PIPE,
+                         stderr = subprocess.PIPE,
+                         bufsize=1)
+    current_encoding='utf-8'
+    while popen.poll() is None:
+        r = popen.stdout.readline().decode(current_encoding)
+        sys.stdout.write(r)
+
+    if popen.poll() != 0:
+        err = popen.stderr.read().decode(current_encoding)
+        sys.stdout.write(err)
+    popen.stdout.close()
+    popen.wait()
 
 if __name__ == '__main__':
     main()
