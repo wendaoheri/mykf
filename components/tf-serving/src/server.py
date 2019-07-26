@@ -46,14 +46,9 @@ def main(argv=None):
                          stdout = subprocess.PIPE,
                          stderr = subprocess.PIPE,
                          bufsize=1)
-    current_encoding='utf-8'
-    while popen.poll() is None:
-        r = popen.stdout.readline().decode(current_encoding)
-        sys.stdout.write(r)
-
-    if popen.poll() != 0:
-        err = popen.stderr.read().decode(current_encoding)
-        sys.stdout.write(err)
+    
+    for line in iter(popen.stdout.readline, b''):
+        print(line)
     popen.stdout.close()
     popen.wait()
 
