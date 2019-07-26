@@ -37,7 +37,8 @@ def main(argv=None):
         '--model_base_path', args.model_base_path
     ])
 
-    commands.getstatusoutput(cmd)
+    status,output = commands.getstatusoutput(cmd)
+    print status, output
 
 if __name__ == '__main__':
     main()
