@@ -19,8 +19,6 @@ Run this script to compile pipeline
 
 
 import kfp.dsl as dsl
-import kfp.gcp as gcp
-import kfp.onprem as onprem
 
 @dsl.pipeline(
   name='MNIST',
@@ -36,8 +34,8 @@ def mnist_pipeline(webhdfs_hosts='',
   Pipeline with three stages:
     1. train an MNIST classifier
     2. deploy a tf-serving instance to the cluster
-    3. deploy a web-ui to interact with it
   """
+  ## 定义训练
   train = dsl.ContainerOp(
       name='train',
       image='registry.cn-hangzhou.aliyuncs.com/mykf/ml-mnist',
@@ -51,9 +49,20 @@ def mnist_pipeline(webhdfs_hosts='',
           ]
   )
 
-#   steps = [train]
-#   for step in steps:
-#     step.apply(onprem.mount_pvc('', 'local-storage', '/mnt'))
+  ## 定义服务
+  server = dsl.ContainerOp(
+      name='tf-serving',
+      image='registry.cn-hangzhou.aliyuncs.com/mykf/ml-tfserving',
+      arguments=[
+          "--webhdfs-hosts", webhdfs_hosts,
+          "--tf-export-dir", model_export_dir,
+          "--model-name", 'mnist',
+          "--model-base-path", '/model'
+          ]
+  )
+
+  ## 让服务在训练之后执行
+  server.after(train)
 
 if __name__ == '__main__':
   import kfp.compiler as compiler
