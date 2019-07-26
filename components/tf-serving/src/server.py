@@ -1,6 +1,7 @@
 import argparse
 import pyhdfs
 import commands
+import os
 
 def download_data_from_hdfs(client, input_data_dir, dest_dir):
   if not os.path.exists(dest_dir):
