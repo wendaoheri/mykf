@@ -26,12 +26,11 @@ LABEL tensorflow_serving_github_branchtag=${TF_SERVING_VERSION_GIT_BRANCH}
 LABEL tensorflow_serving_github_commit=${TF_SERVING_VERSION_GIT_COMMIT}
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates python-dev python-setuptools  wget unzip git \
+        ca-certificates python-dev python-setuptools python-pip wget unzip git \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN easy_install pip
 RUN pip install pyhdfs
 
 # Install TF Serving pkg
