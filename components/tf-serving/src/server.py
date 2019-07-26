@@ -34,15 +34,15 @@ def main(argv=None):
 
     download_data_from_hdfs(client, args.tf_export_dir,args.model_base_path)
     
-    cmd = ' '.join([
+    cmd = [
         'tensorflow_model_server',
         '--port=' + str(args.port),
         '--rest_api_port=' + str(args.rest_api_port),
         '--model_name=' + args.model_name,
         '--model_base_path=' + args.model_base_path
-    ])
+    ]
     print(cmd)
-    popen = subprocess.Popen([cmd],
+    popen = subprocess.Popen(cmd,
                          stdout = subprocess.PIPE,
                          stderr = subprocess.PIPE,
                          bufsize=1)
