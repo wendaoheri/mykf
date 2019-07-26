@@ -1,0 +1,2 @@
+
+<function ml-mnist(webhdfs_hosts:'String', training_data_input_hdfs_dir:'String', tf_model_dir:'String', model_data_output_hdfs_dir:'String', tf_model_type:'String', train_steps:'Integer', train_batch_size:'Integer', train_learning_rate:'Float')>
