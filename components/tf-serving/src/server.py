@@ -35,10 +35,10 @@ def main(argv=None):
     
     cmd = ' '.join([
         'tensorflow_model_server',
-        '--port', str(args.port),
-        '--rest_api_port', str(args.rest_api_port),
-        '--model_name', args.model_name,
-        '--model_base_path', args.model_base_path
+        '--port=' + str(args.port),
+        '--rest_api_port=' + str(args.rest_api_port),
+        '--model_name=' + args.model_name,
+        '--model_base_path=' + args.model_base_path
     ])
     print(cmd)
     status,output = commands.getstatusoutput(cmd)
